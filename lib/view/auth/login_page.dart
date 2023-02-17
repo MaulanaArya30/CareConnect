@@ -1,5 +1,8 @@
+import 'dart:html';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,7 +11,12 @@ import 'package:gdscapp/view/home/profile_page.dart';
 import '../../main.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final VoidCallbackAction onClickedSignUp;
+
+  const LoginScreen({
+    Key? key,
+    required this.onClickedSignUp,
+  }) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -38,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "oCare: Orphanage App",
+                "oCare: Orphanrage App",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -78,14 +86,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 14,
-                  ),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black),
+                  text: "No Account?",
+                  children: [
+                    TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = widget.onClickedSignUp,
+                        text: "Sign Up",
+                        style: TextStyle(color: Colors.blue)),
+                  ],
                 ),
               ),
               SizedBox(height: 60),

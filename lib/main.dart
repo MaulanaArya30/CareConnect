@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gdscapp/view/auth/auth_page.dart';
 import 'package:gdscapp/view/auth/login_page.dart';
 import 'package:gdscapp/view/home/profile_page.dart';
 
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return ProfileScreen();
             } else {
-              return LoginScreen();
+              return AuthPage();
             }
           }),
     );
