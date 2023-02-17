@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "520346535689",
+    "project_id": "orphan-app-8e50e",
+    "storage_bucket": "orphan-app-8e50e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520346535689:android:ac0c2ee6b076ea285cf5d8",
+        "android_client_info": {
+          "package_name": "com.example.gdscapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520346535689-u68eq8rir9vgkjtka0vnvoujpetng2e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL_FMx4tteIEdC74roe4TSrMaDoxZ1zLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520346535689-u68eq8rir9vgkjtka0vnvoujpetng2e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
