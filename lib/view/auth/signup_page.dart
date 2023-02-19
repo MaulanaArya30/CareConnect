@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -103,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 width: double.infinity,
                 child: RawMaterialButton(
                   fillColor: const Color.fromARGB(255, 37, 157, 217),
-                  onPressed: logIn,
+                  onPressed: signUp,
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
@@ -117,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  Future logIn() async {
+  Future signUp() async {
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -126,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
             ));
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );

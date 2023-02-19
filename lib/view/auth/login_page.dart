@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
@@ -11,7 +9,7 @@ import 'package:gdscapp/view/home/profile_page.dart';
 import '../../main.dart';
 
 class LoginScreen extends StatefulWidget {
-  final VoidCallbackAction onClickedSignUp;
+  final Function() onClickedSignUp;
 
   const LoginScreen({
     Key? key,
@@ -94,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextSpan(
                         recognizer: TapGestureRecognizer()
                           ..onTap = widget.onClickedSignUp,
-                        text: "Sign Up",
+                        text: " Sign Up",
                         style: TextStyle(color: Colors.blue)),
                   ],
                 ),
