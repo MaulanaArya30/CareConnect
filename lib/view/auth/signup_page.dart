@@ -9,7 +9,7 @@ import 'package:gdscapp/view/home/profile_page.dart';
 import '../../main.dart';
 
 class SignupScreen extends StatefulWidget {
-  final VoidCallbackAction onClickedSignIn;
+  final Function() onClickedSignIn;
 
   const SignupScreen({
     Key? key,
@@ -91,8 +91,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = widget.onClickedSignIn,
-                        text: "Login",
+                          ..onTap =
+                              widget.onClickedSignIn as GestureTapCallback?,
+                        text: " Login",
                         style: TextStyle(color: Colors.blue)),
                   ],
                 ),
