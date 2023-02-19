@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gdscapp">
    <application
-        android:label="gdscapp"
+        android:label="oCare"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
