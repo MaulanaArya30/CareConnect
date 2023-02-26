@@ -4,6 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:gdscapp/view/auth/forgotpassword_page.dart';
+import 'package:gdscapp/view/auth/forgotpassword_page.dart';
+import 'package:gdscapp/view/auth/forgotpassword_page.dart';
+import 'package:gdscapp/view/auth/forgotpassword_page.dart';
 import 'package:gdscapp/view/home/profile_page.dart';
 
 import '../../main.dart';
@@ -84,6 +88,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 20),
+              GestureDetector(
+                child: Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue,
+                  ),
+                ),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ForgotPasswordScreen(),
+                )),
+              ),
+              SizedBox(height: 10),
               RichText(
                 text: TextSpan(
                   style: TextStyle(color: Colors.black),
