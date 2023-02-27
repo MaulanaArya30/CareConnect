@@ -17,30 +17,30 @@ class DetailScreen extends StatefulWidget {
 }
 
 class _DetailScreenState extends State<DetailScreen> {
-  late DocumentSnapshot _documentSnapshot;
-  //late File _imageFile;
+  File? _imageFile;
 
-  // @override
-  // void initState() {
-  //   super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-  //   // Get a reference to the image location in Firebase Storage
-  //   Reference ref = FirebaseStorage.instance
-  //       .ref()
-  //       .child('gs://orphan-app-8e50e.appspot.com/${widget.documentId}.jpg');
+    // Get a reference to the image location in Firebase Storage
+    Reference ref =
+        FirebaseStorage.instance.ref().child('images/${widget.documentId}.jpg');
 
-  //   // Download the image to a temporary directory on the device
-  //   final Directory systemTempDir = Directory.systemTemp;
-  //   final File file = File('${systemTempDir.path}/${widget.documentId}.jpg');
-  //   ref.writeToFile(file).then((_) {
-  //     setState(() {
-  //       _imageFile = file;
-  //     });
-  //   });
-  // }
+    // Download the image to a temporary directory on the device
+    final Directory systemTempDir = Directory.systemTemp;
+    final File file = File('${systemTempDir.path}/${widget.documentId}.jpg');
+    ref.writeToFile(file).then((_) {
+      setState(() {
+        _imageFile = file;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(_imageFile);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('My Detail Page'),
@@ -53,25 +53,27 @@ class _DetailScreenState extends State<DetailScreen> {
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              _documentSnapshot = snapshot.data!;
               return Container(
                 padding: EdgeInsets.all(30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '${_documentSnapshot['name']}',
+                      '${snapshot.data!['name']}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 30),
-                    // _imageFile == null
-                    //     ? CircularProgressIndicator()
-                    //     : Image.file(_imageFile),
                     SizedBox(height: 20),
-                    Text('Description: ${_documentSnapshot['description']}'),
+                    Container(
+                      margin: EdgeInsets.all(30),
+                      child: _imageFile == null
+                          ? CircularProgressIndicator()
+                          : Image.file(_imageFile!),
+                    ),
+                    SizedBox(height: 20),
+                    Text('Description: ${snapshot.data!['description']}'),
                     SizedBox(height: 50),
                     Container(
                       width: double.infinity,
