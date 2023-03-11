@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
             } else if (snapshot.hasData) {
               return ProfileScreen();
             } else {
-              return StartPage();
+              return AuthPage();
             }
           }),
     );

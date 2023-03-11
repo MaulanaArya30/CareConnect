@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:gdscapp/main.dart';
 import 'package:gdscapp/view/auth/auth_page.dart';
 import 'package:gdscapp/view/auth/login_page.dart';
 import 'package:gdscapp/view/auth/signup_page.dart';
@@ -37,7 +38,7 @@ class StartPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AuthPage()),
+                      MaterialPageRoute(builder: (context) => HomePage()),
                     );
                   },
                   child: Text(

@@ -103,6 +103,9 @@ flutter:
         - asset: assets/fonts/Lato/Lato-Thin.ttf
         - asset: assets/fonts/Lato/Lato-ThinItalic.ttf
           # weight: 900
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-ExtraBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

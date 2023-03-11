@@ -21,39 +21,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
+      backgroundColor: Color.fromRGBO(0, 119, 194, 1),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(13.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 30),
-            Text(
-              "oCare",
-              style: TextStyle(
-                fontSize: 40,
-                fontFamily: 'OleoScript',
-                color: Colors.black,
+            SizedBox(height: 40),
+            Container(
+              child: Image(
+                image: AssetImage('assets/images/title.png'),
               ),
             ),
+            SizedBox(height: 25),
             SizedBox(
-              height: 45,
+              height: 30,
               child: TextField(
                 textAlignVertical: TextAlignVertical.bottom,
                 textAlign: TextAlign.center,
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Color.fromRGBO(255, 202, 0, 1),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  hintText: "Alert? / Search Bar?",
+                  hintText: "Find A Place or Orphanages",
+                  hintStyle: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 14,
+                      fontFamily: 'Nunito'),
                 ),
               ),
             ),
             SizedBox(height: 10),
             Container(
               width: double.infinity,
-              height: 128,
+              height: 105,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 color: Color.fromARGB(255, 37, 157, 217),
@@ -72,8 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 scrollDirection: Axis.vertical,
                 padding: EdgeInsets.only(top: 0),
                 children: <Widget>[
-                  OrphanageButton(id: "1"),
-                  OrphanageButton(id: '0'),
+                  OrphanageButton(id: "0"),
+                  OrphanageButton(id: '1'),
                   OrphanageButton(id: '2'),
                   OrphanageButton(id: '3'),
                 ],
@@ -85,27 +90,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  OrphanButton(id: 1),
-                  OrphanButton(id: 2),
-                  OrphanButton(id: 3),
-                  OrphanButton(id: 0),
+                  OrphanButton(id: "0"),
+                  OrphanButton(id: '1'),
+                  OrphanButton(id: '2'),
+                  OrphanButton(id: '3'),
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 12),
             Container(
               width: double.infinity,
+              height: 40,
               child: RawMaterialButton(
-                padding: EdgeInsets.all(18.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(23.0),
                 ),
-                fillColor: const Color.fromARGB(255, 37, 157, 217),
+                fillColor: Color.fromRGBO(130, 195, 65, 1),
                 onPressed: () {},
-                child: const Text(
+                child: Text(
                   "Donate Now",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -113,13 +121,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(height: 10),
             Container(
               width: double.infinity,
+              height: 40,
               child: RawMaterialButton(
-                fillColor: const Color.fromARGB(255, 37, 157, 217),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(23.0),
+                ),
+                fillColor: Color.fromRGBO(255, 202, 0, 1),
                 onPressed: () => FirebaseAuth.instance.signOut(),
-                child: const Text(
-                  "Logout",
+                child: Text(
+                  "Give Alert",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                    fontWeight: FontWeight.w800,
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
                   ),
                 ),
               ),

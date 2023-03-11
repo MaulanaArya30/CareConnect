@@ -65,17 +65,25 @@ class _OrphanageButtonState extends State<OrphanageButton> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: Color.fromARGB(255, 37, 157, 217),
+                color: Color.fromRGBO(240, 242, 244, 1),
               ),
               child: Row(
                 children: [
                   Expanded(
                     flex: 3,
                     child: Container(
-                      margin: EdgeInsets.all(10),
+                      margin: EdgeInsets.fromLTRB(9, 8, 0, 8),
                       child: _imageFile == null
                           ? Center(child: CircularProgressIndicator())
-                          : Image.file(_imageFile!),
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                image: DecorationImage(
+                                  image: FileImage(_imageFile!),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                     ),
                   ),
                   SizedBox(width: 20),
@@ -85,20 +93,25 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 5),
                         Container(
                           child: Text(
-                            "Title:  ${snapshot.data!['name']}",
+                            "${snapshot.data!['name']}",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromRGBO(77, 77, 77, 1),
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20,
+                              fontFamily: 'Nunito',
                             ),
                           ),
                         ),
-                        SizedBox(height: 5),
                         Container(
                           child: Text(
                             'Detail: ${snapshot.data!['widgetdesc']}',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color.fromRGBO(77, 77, 77, 1),
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                         ),
@@ -107,22 +120,51 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                             Expanded(
                               flex: 4,
                               child: Container(
-                                height: 15,
-                                margin: EdgeInsets.fromLTRB(0, 5, 5, 5),
+                                height: 35,
+                                margin: EdgeInsets.fromLTRB(0, 13, 17, 8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.red,
+                                  color: Color.fromRGBO(130, 195, 65, 1),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Center(
+                                    child: Text(
+                                      'Donate',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily: 'Nunito',
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
+                            SizedBox(width: 17),
                             Expanded(
                               flex: 4,
                               child: Container(
-                                height: 15,
-                                margin: EdgeInsets.fromLTRB(0, 5, 10, 5),
+                                height: 35,
+                                margin: EdgeInsets.fromLTRB(0, 13, 28, 8),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.green,
+                                  color: Color.fromRGBO(255, 202, 0, 1),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: Center(
+                                    child: Text(
+                                      'Alert',
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily: 'Nunito',
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
