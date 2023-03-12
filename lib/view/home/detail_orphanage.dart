@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../widgets/map_widget.dart';
 import '../../widgets/orphan_button.dart';
 
 class DetailOrphanage extends StatefulWidget {
@@ -145,20 +146,7 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                         ],
                       ),
                       SizedBox(height: 13),
-                      Container(
-                        width: double.infinity,
-                        height: 105,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: Color.fromARGB(255, 37, 157, 217),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Map",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
+                      MapWidget(),
                       SizedBox(height: 10),
                       Container(
                         height: 128,

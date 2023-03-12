@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../widgets/map_widget.dart';
 import '../../widgets/orphan_button.dart';
 import '../../widgets/orphanage_button.dart';
 import 'detail_orphanage.dart';
@@ -40,6 +41,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: TextField(
                 textAlignVertical: TextAlignVertical.bottom,
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                    fontFamily: 'Nunito'),
                 textInputAction: TextInputAction.done,
                 decoration: InputDecoration(
                   filled: true,
@@ -56,19 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              height: 105,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.0),
-                color: Color.fromARGB(255, 37, 157, 217),
-              ),
-              child: Center(
-                  child: Text(
-                "Map",
-                style: TextStyle(color: Colors.white),
-              )),
-            ),
+            MapWidget(),
             SizedBox(height: 10),
             Container(
               height: 276,

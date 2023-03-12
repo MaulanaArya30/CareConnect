@@ -43,8 +43,15 @@ dependencies:
   email_validator: ^2.1.17
   basic_utils: ^5.5.1
   firebase_storage: ^11.0.14
-  google_maps_flutter: ^2.2.4
+  
   carousel_slider: ^4.2.1
+
+  #Maps
+  google_maps_flutter: ^2.2.4
+  flutter_polyline_points: ^1.0.0
+  location: ^4.4.0
+  
+
 
 dev_dependencies:
   flutter_test:
