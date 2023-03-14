@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapWidget extends StatefulWidget {
   const MapWidget({
@@ -13,94 +16,105 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  late GoogleMapController mapController;
+  LatLng? currentPosition;
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+  static final CameraPosition initialCameraPosition = CameraPosition(
+    target: LatLng(-7.780883969201934, 110.37561674185413),
     zoom: 14.4746,
   );
 
-  static final Marker _kGooglePlexMarker = Marker(
-    markerId: MarkerId("_kGooglePlex"),
-    infoWindow: InfoWindow(title: 'Google Plex'),
-    icon: BitmapDescriptor.defaultMarker,
-    position: LatLng(37.42796133580664, -122.085749655962),
-  );
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation().then((position) {
+      setState(() {
+        currentPosition = LatLng(position.latitude, position.longitude);
+      });
+    });
+  }
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw 'Location service not enabled';
+    }
 
-  static final Marker _kLakeMarker = Marker(
-    markerId: MarkerId("_kLake"),
-    infoWindow: InfoWindow(title: 'Lake'),
-    icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueYellow),
-    position: LatLng(37.43296265331129, -122.08832357078792),
-  );
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw 'Location permission denied';
+      }
+    }
 
-  static final Polyline _kPolyline = Polyline(
-    polylineId: PolylineId("_kPolyLine"),
-    points: [
-      LatLng(37.42796133580664, -122.085749655962),
-      LatLng(37.43296265331129, -122.08832357078792),
-    ],
-    width: 5,
-  );
-
-  static final Polygon _kPolygon = Polygon(
-    polygonId: PolygonId("_kPolygon"),
-    points: [
-      LatLng(37.42796133580664, -122.085749655962),
-      LatLng(37.43296265331129, -122.08832357078792),
-      LatLng(37.435, -122.092),
-      LatLng(37.418, -122.092),
-    ],
-    strokeWidth: 5,
-    fillColor: Colors.transparent,
-  );
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 140,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15.0),
-        child: Scaffold(
-          body: Container(
-            child: GoogleMap(
-              mapType: MapType.normal,
-              markers: {
-                _kGooglePlexMarker,
-                // _kLakeMarker,
-              },
-              // polylines: {
-              //   _kPolyline,
-              // },
-              // polygons: {
-              //   _kPolygon,
-              // },
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            ),
-            // floatingActionButton: FloatingActionButton.extended(
-            //   onPressed: _goToTheLake,
-            //   label: const Text('To the lake!'),
-            //   icon: const Icon(Icons.directions_boat),
-            // ),
+    if (currentPosition == null) {
+      return Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: 140,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15.0),
+          color: Color.fromRGBO(254, 250, 238, 1),
+        ),
+        child: Text(
+          textAlign: TextAlign.center,
+          'You did not gave permission to your location \nPlease allow permission in the settings of your device \nIf you have enabled it, please wait a bit...',
+          style: TextStyle(
+            color: Color.fromRGBO(77, 77, 77, 1),
+            fontWeight: FontWeight.w800,
+            fontFamily: 'Nunito',
+            fontSize: 14,
           ),
         ),
-      ),
-    );
-  }
+      );
+    } else {
+      return Container(
+        width: double.infinity,
+        height: 140,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15.0),
+          child: Scaffold(
+            body: Container(
+              child: GoogleMap(
+                mapType: MapType.normal,
+                onMapCreated: (GoogleMapController controller) {
+                  setState(() {
+                    mapController = controller;
+                  });
+                },
+                markers: {
+                  if (currentPosition != null)
+                    Marker(
+                      markerId: MarkerId('current'),
+                      infoWindow: InfoWindow(title: "Your Location"),
+                      position: currentPosition!,
+                    ),
 
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+                  //deviceLocationMarker,
+                  // _kLakeMarker,
+                },
+                // polylines: {
+                //   _kPolyline,
+                // },
+                // polygons: {
+                //   _kPolygon,
+                // },
+                initialCameraPosition: CameraPosition(
+                  target: currentPosition!,
+                  zoom: 13.4746,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 }

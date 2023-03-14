@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../widgets/map_detail.dart';
 import '../../widgets/map_widget.dart';
 import '../../widgets/orphan_button.dart';
 
@@ -146,7 +147,7 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                         ],
                       ),
                       SizedBox(height: 13),
-                      MapWidget(),
+                      MapDetail(locId: "${widget.documentId}"),
                       SizedBox(height: 10),
                       Container(
                         height: 128,
