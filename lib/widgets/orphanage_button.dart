@@ -97,6 +97,9 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                         Container(
                           child: Text(
                             "${snapshot.data!['name']}",
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             style: TextStyle(
                               color: Color.fromRGBO(77, 77, 77, 1),
                               fontWeight: FontWeight.w800,

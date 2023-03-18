@@ -54,12 +54,12 @@ class _OrphanButtonState extends State<OrphanButton> {
                 ? Center(child: CircularProgressIndicator())
                 : GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                DetailOrphanage(documentId: "${widget.id}")),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           DetailOrphanage(documentId: "${widget.id}")),
+                      // );
                     },
                     child: Container(
                       width: 128,

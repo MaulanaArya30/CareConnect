@@ -7,9 +7,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({
-    super.key,
-  });
+  final Function(LatLng)? callback;
+  const MapWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -49,6 +48,13 @@ class _MapWidgetState extends State<MapWidget> {
     }
 
     Position position = await Geolocator.getCurrentPosition();
+    var currentPoint = LatLng(position.latitude, position.longitude);
+    setState(() {
+      currentPosition = currentPoint;
+    });
+    if (widget.callback != null) {
+      widget.callback!(currentPoint);
+    }
     return position;
   }
 
@@ -96,16 +102,7 @@ class _MapWidgetState extends State<MapWidget> {
                       infoWindow: InfoWindow(title: "Your Location"),
                       position: currentPosition!,
                     ),
-
-                  //deviceLocationMarker,
-                  // _kLakeMarker,
                 },
-                // polylines: {
-                //   _kPolyline,
-                // },
-                // polygons: {
-                //   _kPolygon,
-                // },
                 initialCameraPosition: CameraPosition(
                   target: currentPosition!,
                   zoom: 13.4746,

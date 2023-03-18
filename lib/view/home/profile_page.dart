@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gdscapp/view/home/alert_page.dart';
+import 'package:gdscapp/view/home/donate_page.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../widgets/map_widget.dart';
 import '../../widgets/orphan_button.dart';
@@ -17,6 +21,26 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  LatLng currentPoint = LatLng(0, 0);
+
+  void _updatePoint(LatLng newValue) {
+    setState(() {
+      currentPoint = newValue;
+    });
+  }
+
+  Future<double> getDistanceBetweenPoints(
+      Position currentPoint, Position point2) async {
+    double distanceInMeters = await Geolocator.distanceBetween(
+      currentPoint.latitude,
+      currentPoint.longitude,
+      point2.latitude,
+      point2.longitude,
+    );
+
+    return distanceInMeters;
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
@@ -35,33 +59,66 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 image: AssetImage('assets/images/title.png'),
               ),
             ),
-            SizedBox(height: 25),
-            SizedBox(
-              height: 30,
-              child: TextField(
-                textAlignVertical: TextAlignVertical.bottom,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 14,
-                    fontFamily: 'Nunito'),
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Color.fromRGBO(255, 202, 0, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AlertScreen()),
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      margin: EdgeInsets.fromLTRB(7, 3, 21, 3),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(217, 217, 217, 1),
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: Icon(
+                        Icons.person,
+                        color: Color.fromARGB(77, 77, 77, 1),
+                        size: 25,
+                      ),
+                    ),
                   ),
-                  hintText: "Find A Place or Orphanages",
-                  hintStyle: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 14,
-                      fontFamily: 'Nunito'),
                 ),
-              ),
+                Expanded(
+                  flex: 8,
+                  child: Container(
+                    height: 30,
+                    width: double.infinity,
+                    child: TextField(
+                      textAlignVertical: TextAlignVertical.bottom,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 14,
+                          fontFamily: 'Nunito'),
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Color.fromRGBO(255, 202, 0, 1),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        hintText: "Find A Place or Orphanages",
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 14,
+                            fontFamily: 'Nunito'),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 10),
-            MapWidget(),
+            MapWidget(callback: _updatePoint),
             SizedBox(height: 10),
             Container(
               height: 276,
@@ -99,7 +156,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(23.0),
                 ),
                 fillColor: Color.fromRGBO(130, 195, 65, 1),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DonateScreen()),
+                  );
+                },
                 child: Text(
                   "Donate Now",
                   style: TextStyle(
@@ -120,7 +182,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(23.0),
                 ),
                 fillColor: Color.fromRGBO(255, 202, 0, 1),
-                onPressed: () => FirebaseAuth.instance.signOut(),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AlertScreen()),
+                  );
+                },
                 child: Text(
                   "Give Alert",
                   style: TextStyle(

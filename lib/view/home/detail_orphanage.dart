@@ -89,6 +89,8 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                             ),
                             Text(
                               '${snapshot.data!['name']}',
+                              softWrap: false,
+                              overflow: TextOverflow.fade,
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 20,
@@ -135,7 +137,7 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                           Container(
                             padding: EdgeInsets.fromLTRB(45, 11, 45, 12),
                             child: Text(
-                              'Description: ${snapshot.data!['description']}',
+                              '${snapshot.data!['description']}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 9,
