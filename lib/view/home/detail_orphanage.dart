@@ -5,13 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:gdscapp/view/home/donate_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../widgets/map_detail.dart';
 import '../../widgets/map_widget.dart';
 import '../../widgets/orphan_button.dart';
+import 'alert_page.dart';
 
 class DetailOrphanage extends StatefulWidget {
+  LatLng? currentPoint;
   final String documentId;
 
   DetailOrphanage({required this.documentId});
@@ -40,6 +43,18 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
       });
     });
   }
+
+  // Future<double> getDistanceBetweenPoints(
+  //     Position currentPoint, Position point2) async {
+  //   double distanceInMeters = await Geolocator.distanceBetween(
+  //     currentPoint.latitude,
+  //     currentPoint.longitude,
+  //     point2.latitude,
+  //     point2.longitude,
+  //   );
+
+  //   return distanceInMeters;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,20 +113,20 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                                 fontFamily: 'Nunito',
                               ),
                             ),
-                            SizedBox(height: 5),
+                            SizedBox(height: 10),
+                            // Text(
+                            //   // '${snapshot.data!['name']}',
+                            //   '__ km away from you',
+                            //   style: TextStyle(
+                            //       fontWeight: FontWeight.w800,
+                            //       fontSize: 14,
+                            //       color: Color.fromRGBO(77, 77, 77, 1),
+                            //       fontFamily: 'Nunito'),
+                            // ),
+                            // SizedBox(height: 5),
                             Text(
-                              // '${snapshot.data!['name']}',
-                              '__ km away from you',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 14,
-                                  color: Color.fromRGBO(77, 77, 77, 1),
-                                  fontFamily: 'Nunito'),
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              // '${snapshot.data!['name']}',
-                              'need ___, __, and ___',
+                              '${snapshot.data!['widgetdesc']}',
+                              // 'need ___, __, and ___',
                               style: TextStyle(
                                 fontWeight: FontWeight.w800,
                                 fontSize: 14,
@@ -139,8 +154,9 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                             child: Text(
                               '${snapshot.data!['description']}',
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.fade,
                               style: TextStyle(
-                                fontSize: 9,
+                                fontSize: 10,
                                 fontFamily: 'Nunito',
                                 fontWeight: FontWeight.w800,
                               ),
@@ -172,7 +188,13 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                             borderRadius: BorderRadius.circular(23.0),
                           ),
                           fillColor: Color.fromRGBO(130, 195, 65, 1),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DonateScreen()),
+                            );
+                          },
                           child: Text(
                             "Donate Now",
                             style: TextStyle(
@@ -193,7 +215,13 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                             borderRadius: BorderRadius.circular(23.0),
                           ),
                           fillColor: Color.fromRGBO(255, 202, 0, 1),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AlertScreen()),
+                            );
+                          },
                           child: Text(
                             "Give Alert",
                             style: TextStyle(

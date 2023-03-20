@@ -29,18 +29,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  Future<double> getDistanceBetweenPoints(
-      Position currentPoint, Position point2) async {
-    double distanceInMeters = await Geolocator.distanceBetween(
-      currentPoint.latitude,
-      currentPoint.longitude,
-      point2.latitude,
-      point2.longitude,
-    );
-
-    return distanceInMeters;
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;

@@ -6,6 +6,7 @@ import 'package:gdscapp/view/auth/login_page.dart';
 import 'package:gdscapp/view/auth/start_page.dart';
 import 'package:gdscapp/view/home/profile_page.dart';
 import 'package:gdscapp/widgets/testmap.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   //Application root
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'CareConnect',

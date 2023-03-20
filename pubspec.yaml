@@ -43,7 +43,7 @@ dependencies:
   email_validator: ^2.1.17
   basic_utils: ^5.5.1
   firebase_storage: ^11.0.14
-  
+  get: ^4.6.5
   carousel_slider: ^4.2.1
 
   #Maps
@@ -51,6 +51,10 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   location: ^4.4.0
   geolocator: ^9.0.2
+
+  #Machine Learning
+  #flutter_python: ^0.2.2
+  #chaquopy: ^0.0.19
   
 
 

@@ -110,7 +110,7 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                         ),
                         Container(
                           child: Text(
-                            'Detail: ${snapshot.data!['widgetdesc']}',
+                            '${snapshot.data!['widgetdesc']}',
                             style: TextStyle(
                               color: Color.fromRGBO(77, 77, 77, 1),
                               fontFamily: 'Nunito',

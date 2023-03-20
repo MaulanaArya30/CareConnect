@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:gdscapp/repository/alert_controller.dart';
 import 'package:gdscapp/widgets/map_widget.dart';
+import 'package:get/get.dart';
+
+import '../../models/alert_model.dart';
 
 class AlertScreen extends StatefulWidget {
   const AlertScreen({super.key});
@@ -11,6 +15,8 @@ class AlertScreen extends StatefulWidget {
 }
 
 class _AlertScreenState extends State<AlertScreen> {
+  final controller = Get.put(AlertController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,8 +58,9 @@ class _AlertScreenState extends State<AlertScreen> {
               ),
               child: Column(
                 children: [
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.name,
+                    controller: controller.rname,
                     decoration: InputDecoration(
                       hintText: "Reporter Name",
                       hintStyle: TextStyle(
@@ -64,8 +71,9 @@ class _AlertScreenState extends State<AlertScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.phone,
+                    controller: controller.rphone,
                     decoration: InputDecoration(
                       hintText: "Phone Number",
                       hintStyle: TextStyle(
@@ -89,8 +97,9 @@ class _AlertScreenState extends State<AlertScreen> {
               ),
               child: Column(
                 children: [
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.name,
+                    controller: controller.oname,
                     decoration: InputDecoration(
                       hintText: "Orphan Name",
                       hintStyle: TextStyle(
@@ -101,8 +110,9 @@ class _AlertScreenState extends State<AlertScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  TextField(
-                    keyboardType: TextInputType.datetime,
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: controller.obirth,
                     decoration: InputDecoration(
                       hintText: "Date of Birth",
                       hintStyle: TextStyle(
@@ -113,8 +123,9 @@ class _AlertScreenState extends State<AlertScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.multiline,
+                    controller: controller.oconditions,
                     decoration: InputDecoration(
                       hintText: "Conditions",
                       hintStyle: TextStyle(
@@ -125,8 +136,9 @@ class _AlertScreenState extends State<AlertScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  TextField(
+                  TextFormField(
                     keyboardType: TextInputType.streetAddress,
+                    controller: controller.olocation,
                     decoration: InputDecoration(
                       hintText: "Locations",
                       hintStyle: TextStyle(
@@ -170,13 +182,34 @@ class _AlertScreenState extends State<AlertScreen> {
                 borderRadius: BorderRadius.circular(23.0),
               ),
               child: Center(
-                child: Text(
-                  "Give Alert",
-                  style: TextStyle(
-                    color: Color.fromRGBO(77, 77, 77, 1),
-                    fontWeight: FontWeight.w800,
-                    fontFamily: 'Nunito',
-                    fontSize: 16,
+                child: InkWell(
+                  onTap: () {
+                    final alert = AlertModel(
+                      rname: controller.rname.text.trim(),
+                      rphone: controller.rphone.text.trim(),
+                      oname: controller.oname.text.trim(),
+                      obirth: controller.obirth.text.trim(),
+                      oconditions: controller.oconditions.text.trim(),
+                      olocation: controller.olocation.text.trim(),
+                    );
+                    AlertController.instance.createAlert(alert);
+                    setState(() {
+                      controller.rname.clear();
+                      controller.rphone.clear();
+                      controller.oname.clear();
+                      controller.obirth.clear();
+                      controller.oconditions.clear();
+                      controller.olocation.clear();
+                    });
+                  },
+                  child: Text(
+                    "Give Alert",
+                    style: TextStyle(
+                      color: Color.fromRGBO(77, 77, 77, 1),
+                      fontWeight: FontWeight.w800,
+                      fontFamily: 'Nunito',
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
