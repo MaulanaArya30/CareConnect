@@ -138,31 +138,26 @@ class _DetailOrphanageState extends State<DetailOrphanage> {
                         ),
                       ),
                       SizedBox(height: 2),
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            height: 165,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(240, 242, 244, 1),
-                              borderRadius: BorderRadius.circular(15.0),
+                      Container(
+                        height: 165,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(240, 242, 244, 1),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        padding: EdgeInsets.fromLTRB(45, 11, 45, 12),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            '${snapshot.data!['description']}',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'Nunito',
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(45, 11, 45, 12),
-                            child: Text(
-                              '${snapshot.data!['description']}',
-                              textAlign: TextAlign.center,
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                       SizedBox(height: 13),
                       MapDetail(locId: "${widget.documentId}"),

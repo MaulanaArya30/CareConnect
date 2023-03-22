@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:gdscapp/view/home/alert_page.dart';
 import 'package:gdscapp/view/home/donate_page.dart';
+import 'package:gdscapp/view/home/search_page.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -77,25 +78,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Expanded(
                   flex: 8,
-                  child: Container(
-                    height: 30,
-                    width: double.infinity,
-                    child: TextField(
-                      textAlignVertical: TextAlignVertical.bottom,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 14,
-                          fontFamily: 'Nunito'),
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color.fromRGBO(255, 202, 0, 1),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        hintText: "Find A Place or Orphanages",
-                        hintStyle: TextStyle(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => SearchScreen()),
+                      );
+                    },
+                    child: Container(
+                      height: 30,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 202, 0, 1),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Find A Place or Orphanages",
+                        style: TextStyle(
                             fontWeight: FontWeight.w800,
                             fontSize: 14,
                             fontFamily: 'Nunito'),

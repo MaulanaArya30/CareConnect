@@ -4,7 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gdscapp/view/home/donate_page.dart';
 
+import '../view/home/alert_page.dart';
 import '../view/home/detail_orphanage.dart';
 
 class OrphanageButton extends StatefulWidget {
@@ -130,7 +132,13 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                                   color: Color.fromRGBO(130, 195, 65, 1),
                                 ),
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DonateScreen()),
+                                    );
+                                  },
                                   child: Center(
                                     child: Text(
                                       'Donate',
@@ -156,7 +164,13 @@ class _OrphanageButtonState extends State<OrphanageButton> {
                                   color: Color.fromRGBO(255, 202, 0, 1),
                                 ),
                                 child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AlertScreen()),
+                                    );
+                                  },
                                   child: Center(
                                     child: Text(
                                       'Alert',
