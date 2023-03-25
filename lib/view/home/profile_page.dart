@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:gdscapp/view/home/my_page.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -23,6 +28,17 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   LatLng currentPoint = LatLng(0, 0);
+
+  var url = "https://apporphan.pythonanywhere.com/";
+
+  Future<List<String>> Getdata(url) async {
+    http.Response Response = await http.get(Uri.parse(url));
+    var data = Response.body;
+    var DecodedData = jsonDecode(data)['index'];
+    List<String> indexList = new List<String>.from(DecodedData);
+    print(indexList);
+    return indexList;
+  }
 
   void _updatePoint(LatLng newValue) {
     setState(() {
@@ -57,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AlertScreen()),
+                        MaterialPageRoute(builder: (context) => MyScreen()),
                       );
                     },
                     child: Container(
@@ -106,20 +122,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             SizedBox(height: 10),
-            MapWidget(callback: _updatePoint),
+            MapWidget(),
             SizedBox(height: 10),
             Container(
               height: 276,
               width: double.infinity,
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                padding: EdgeInsets.only(top: 0),
-                children: <Widget>[
-                  OrphanageButton(id: "0"),
-                  OrphanageButton(id: '1'),
-                  OrphanageButton(id: '2'),
-                  OrphanageButton(id: '3'),
-                ],
+              child: FutureBuilder<List<String>>(
+                future: Getdata(url),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  } else if (snapshot.data == null) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasData) {
+                    return ListView(
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.only(top: 0),
+                      children: <Widget>[
+                        OrphanageButton(id: snapshot.data![0]),
+                        OrphanageButton(id: snapshot.data![1]),
+                        OrphanageButton(id: snapshot.data![2]),
+                        OrphanageButton(id: snapshot.data![3]),
+                      ],
+                    );
+                  } else {
+                    return Center(
+                      child: Text('No data'),
+                    );
+                  }
+                },
               ),
             ),
             SizedBox(height: 10),
