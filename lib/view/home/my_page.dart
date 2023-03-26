@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:gdscapp/models/profile_model.dart';
 import 'package:gdscapp/repository/alert_controller.dart';
+import 'package:gdscapp/repository/profile_controller.dart';
 import 'package:gdscapp/widgets/map_widget.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +19,7 @@ class MyScreen extends StatefulWidget {
 }
 
 class _MyScreenState extends State<MyScreen> {
-  final controller = Get.put(AlertController());
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +53,7 @@ class _MyScreenState extends State<MyScreen> {
             ),
             SizedBox(height: 15),
             Container(
-              height: 800,
+              height: 750,
               width: double.infinity,
               padding: EdgeInsets.all(21),
               decoration: BoxDecoration(
@@ -61,7 +64,7 @@ class _MyScreenState extends State<MyScreen> {
                 children: [
                   TextFormField(
                     keyboardType: TextInputType.name,
-                    controller: controller.rname,
+                    controller: controller.name,
                     decoration: InputDecoration(
                       hintText: "Name",
                       hintStyle: TextStyle(
@@ -71,22 +74,9 @@ class _MyScreenState extends State<MyScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  TextFormField(
-                    keyboardType: TextInputType.name,
-                    controller: controller.rphone,
-                    decoration: InputDecoration(
-                      hintText: "Username",
-                      hintStyle: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontFamily: 'Nunito',
-                        color: Color.fromRGBO(77, 77, 77, 1),
-                      ),
-                    ),
-                  ),
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
-                    controller: controller.oname,
+                    controller: controller.email,
                     decoration: InputDecoration(
                       hintText: "Email",
                       hintStyle: TextStyle(
@@ -99,7 +89,7 @@ class _MyScreenState extends State<MyScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.phone,
-                    controller: controller.obirth,
+                    controller: controller.phone,
                     decoration: InputDecoration(
                       hintText: "Phone Number",
                       hintStyle: TextStyle(
@@ -109,7 +99,7 @@ class _MyScreenState extends State<MyScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: 35),
                   Text(
                     "Donation Preference",
                     style: TextStyle(
@@ -119,35 +109,39 @@ class _MyScreenState extends State<MyScreen> {
                       color: Color.fromRGBO(77, 77, 77, 1),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CheckWidget(things: "clothings"),
-                          CheckWidget(things: "activities"),
-                          CheckWidget(things: "sponsor"),
-                          CheckWidget(things: "operational"),
-                          CheckWidget(things: "health"),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CheckWidget(things: "infrastructure"),
-                          CheckWidget(things: "education"),
-                          CheckWidget(things: "food"),
-                          CheckWidget(things: "facilities"),
-                        ],
-                      ),
-                    ],
+                  SizedBox(height: 10),
+                  Container(
+                    height: 250,
+                    child: Row(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CheckWidget(things: "clothings"),
+                            CheckWidget(things: "activities"),
+                            CheckWidget(things: "sponsor"),
+                            CheckWidget(things: "operational"),
+                            CheckWidget(things: "health"),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CheckWidget(things: "infrastructure"),
+                            CheckWidget(things: "education"),
+                            CheckWidget(things: "food"),
+                            CheckWidget(things: "facilities"),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.multiline,
-                    controller: controller.oconditions,
+                    controller: controller.cardname,
                     decoration: InputDecoration(
                       hintText: "Name On Card",
                       hintStyle: TextStyle(
@@ -160,7 +154,7 @@ class _MyScreenState extends State<MyScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    controller: controller.olocation,
+                    controller: controller.cardnumber,
                     decoration: InputDecoration(
                       hintText: "Card Number",
                       hintStyle: TextStyle(
@@ -173,7 +167,7 @@ class _MyScreenState extends State<MyScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    controller: controller.olocation,
+                    controller: controller.securitycode,
                     decoration: InputDecoration(
                       hintText: "Security Code",
                       hintStyle: TextStyle(
@@ -186,7 +180,7 @@ class _MyScreenState extends State<MyScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     keyboardType: TextInputType.number,
-                    controller: controller.olocation,
+                    controller: controller.expiredate,
                     decoration: InputDecoration(
                       hintText: "Expiration Date",
                       hintStyle: TextStyle(
@@ -210,23 +204,17 @@ class _MyScreenState extends State<MyScreen> {
               child: Center(
                 child: InkWell(
                   onTap: () {
-                    // final alert = AlertModel(
-                    //   rname: controller.rname.text.trim(),
-                    //   rphone: controller.rphone.text.trim(),
-                    //   oname: controller.oname.text.trim(),
-                    //   obirth: controller.obirth.text.trim(),
-                    //   oconditions: controller.oconditions.text.trim(),
-                    //   olocation: controller.olocation.text.trim(),
-                    // );
-                    // AlertController.instance.createAlert(alert);
-                    // setState(() {
-                    //   controller.rname.clear();
-                    //   controller.rphone.clear();
-                    //   controller.oname.clear();
-                    //   controller.obirth.clear();
-                    //   controller.oconditions.clear();
-                    //   controller.olocation.clear();
-                    // });
+                    final user = ProfileModel(
+                      name: controller.name.text.trim(),
+                      email: controller.email.text.trim(),
+                      phone: controller.phone.text.trim(),
+                      cardname: controller.cardname.text.trim(),
+                      cardnumber: controller.cardnumber.text.trim(),
+                      securitycode: controller.securitycode.text.trim(),
+                      expiredate: controller.expiredate.text.trim(),
+                    );
+                    ProfileController.instance.createProfile(user);
+                    //ProfileController.instance.updateProfile(user);
                   },
                   child: Text(
                     "Save Profile",

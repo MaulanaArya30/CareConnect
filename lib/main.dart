@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gdscapp/view/auth/auth_page.dart';
 import 'package:gdscapp/view/auth/login_page.dart';
 import 'package:gdscapp/view/auth/start_page.dart';
+import 'package:gdscapp/view/home/my_page.dart';
 import 'package:gdscapp/view/home/profile_page.dart';
 import 'package:gdscapp/view/home/search_page.dart';
 import 'package:gdscapp/widgets/testmap.dart';
